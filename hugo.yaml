@@ -174,9 +174,9 @@ menu:
       name: Blogs
       url: /blogs
       weight: 1
-    # - identifier: projects
-    #   name: Projects
-    #   url: /projects
+    - identifier: projects
+      name: Projects
+      url: /projects
     #   weight: 2
     # - identifier: resume
     #   name: Resume

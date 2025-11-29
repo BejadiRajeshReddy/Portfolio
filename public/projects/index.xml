@@ -14,24 +14,37 @@
     <lastBuildDate>Sat, 29 Nov 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Sample Project</title>
-      <link>http://localhost:1313/projects/sample-project/</link>
+      <title>3-Tier Web Application on AWS</title>
+      <link>http://localhost:1313/projects/3-tier-web-application/</link>
       <pubDate>Sat, 29 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/sample-project/</guid>
-      <description>&lt;h2 id=&#34;project-overview&#34;&gt;Project Overview&lt;/h2&gt;
-&lt;p&gt;This is a sample project to demonstrate the card layout.&lt;/p&gt;
-&lt;h3 id=&#34;features&#34;&gt;Features&lt;/h3&gt;
+      <guid>http://localhost:1313/projects/3-tier-web-application/</guid>
+      <description>&lt;!-- # 3-Tier Web Application on AWS --&gt;
+&lt;h2 id=&#34;project-overview&#34;&gt;Project Overview&lt;/h2&gt;
+&lt;p&gt;A scalable, highly available 3-tier web application deployed on AWS infrastructure, featuring automated CI/CD pipelines and infrastructure as code. This project demonstrates modern cloud architecture patterns, DevOps best practices, and comprehensive automation.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Live Demo:&lt;/strong&gt; &lt;a href=&#34;#&#34;&gt;Project Link&lt;/a&gt; | &lt;strong&gt;GitHub:&lt;/strong&gt; &lt;a href=&#34;#&#34;&gt;Repository&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;
+&lt;h3 id=&#34;high-level-design&#34;&gt;High-Level Design&lt;/h3&gt;
+&lt;p&gt;The application follows a classic 3-tier architecture pattern:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Feature 1&lt;/li&gt;
-&lt;li&gt;Feature 2&lt;/li&gt;
-&lt;li&gt;Feature 3&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Presentation Tier&lt;/strong&gt;: Static website hosted on Amazon S3, accessible via CloudFront&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Application Tier&lt;/strong&gt;: EC2 instances behind Application Load Balancer with Auto Scaling, plus AWS Lambda for serverless backend processing&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data Tier&lt;/strong&gt;: Amazon DynamoDB for NoSQL data storage with VPC Gateway Endpoint for secure access&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;technologies-used&#34;&gt;Technologies Used&lt;/h3&gt;
+&lt;h3 id=&#34;key-components&#34;&gt;Key Components&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Hugo&lt;/li&gt;
-&lt;li&gt;HTML/CSS&lt;/li&gt;
-&lt;li&gt;Markdown&lt;/li&gt;
-&lt;/ul&gt;</description>
+&lt;li&gt;&lt;strong&gt;Amazon VPC&lt;/strong&gt;: Isolated network environment with public and private subnets across multiple Availability Zones&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Application Load Balancer&lt;/strong&gt;: Distributes traffic across EC2 instances and Lambda functions&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Auto Scaling Group&lt;/strong&gt;: Automatically adjusts capacity based on demand&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AWS Lambda&lt;/strong&gt;: Serverless compute for backend logic and DynamoDB interactions&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Amazon DynamoDB&lt;/strong&gt;: Fast, scalable NoSQL database&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Amazon S3&lt;/strong&gt;: Static website hosting with public access configuration&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IAM Roles &amp;amp; Policies&lt;/strong&gt;: Fine-grained access control for all services&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;technical-implementation&#34;&gt;Technical Implementation&lt;/h2&gt;
+&lt;h3 id=&#34;infrastructure-as-code&#34;&gt;Infrastructure as Code&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Tool&lt;/strong&gt;: Terraform&lt;/p&gt;</description>
     </item>
     <item>
       <title>Day 6 </title>
