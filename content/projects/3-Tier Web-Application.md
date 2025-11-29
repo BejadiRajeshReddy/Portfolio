@@ -215,7 +215,7 @@ Developer → Git Commit → GitHub Actions → Quality Gates → AWS Deployment
 - **Scalability**: Auto-scales from 2 to 10 instances based on load
 
 ---
-
+<!-- 
 ## Repository Structure
 
 ```
@@ -238,7 +238,7 @@ Developer → Git Commit → GitHub Actions → Quality Gates → AWS Deployment
         └── static.yml
 ```
 
----
+--- -->
 
 ## Contact & Contributions
 
