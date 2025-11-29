@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blogs on Rajesh Reddy Bejadi</title>
+    <link>http://localhost:1313/blogs/</link>
+    <description>Recent content in Blogs on Rajesh Reddy Bejadi</description>
+    <image>
+      <title>Rajesh Reddy Bejadi</title>
+      <url>http://localhost:1313/images/papermod-cover.png</url>
+      <link>http://localhost:1313/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 28 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/blogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Day 5 — Understanding Terraform Variables (Input, Output, Locals &amp; Precedence)</title>
+      <link>http://localhost:1313/blogs/day-5-terraform/</link>
+      <pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/day-5-terraform/</guid>
+      <description>&lt;div style=&#34;width: 100%;&#34;&gt;
+    &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+          &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/QMsJholPkDY?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
+        &lt;/div&gt;
+
+&lt;/div&gt;
+&lt;br&gt;
+&lt;p&gt;Today’s focus was on one of the most important concepts in Terraform: &lt;strong&gt;Variables&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Variables help make Terraform configurations reusable, flexible, and clean — especially when working with AWS infrastructure.&lt;/p&gt;
+&lt;p&gt;This blog covers why variables are needed, the different types, how to declare them, and how Terraform decides which value takes priority when multiple sources exist.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Day 6 </title>
+      <link>http://localhost:1313/blogs/day-6/</link>
+      <pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/day-6/</guid>
+      <description>&lt;h2 id=&#34;terraform-structure-overview&#34;&gt;&lt;strong&gt;Terraform Structure Overview&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;A Terraform project usually contains four important blocks:&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Block&lt;/th&gt;
+          &lt;th&gt;Purpose&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;terraform&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Declares providers and versions&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;provider&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Connects Terraform to AWS / Cloud&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;resource&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Creates infrastructure&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;data&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Reads existing infrastructure&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Now let’s see each one with examples.&lt;/p&gt;
+&lt;h1 id=&#34;-1-terraform-block&#34;&gt;🌍 1. &lt;strong&gt;Terraform Block&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;The &lt;strong&gt;terraform block&lt;/strong&gt; is used to configure settings that affect &lt;strong&gt;Terraform itself&lt;/strong&gt;, not the cloud provider or the resources. The &lt;strong&gt;terraform block&lt;/strong&gt; tells Terraform &lt;strong&gt;how to behave&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Day 5 — Understanding Terraform Variables (Input, Output, Locals &amp; Precedence)</title>
+      <link>http://localhost:1313/blogs/sample-blog/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/sample-blog/</guid>
+      <description>&lt;p&gt;This is a sample blog post. You can use this as a template to create more blog posts.&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Welcome to the sample blog! This is where you can write about your ideas, projects, or anything you want to share.&lt;/p&gt;
+&lt;h2 id=&#34;content&#34;&gt;Content&lt;/h2&gt;
+&lt;p&gt;Feel free to add images, code snippets, or any other content to make your blog engaging.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Example Python code&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Hello, world!&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Thank you for reading this sample blog. Stay tuned for more updates!&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

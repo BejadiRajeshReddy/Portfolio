@@ -1,0 +1,96 @@
+/* Card Layout Styles */
+.post-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.post-card {
+  background: var(--entry);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.post-card-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.post-card-image img {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 20px;
+  padding: 10px 10px 0 10px;
+}
+
+.post-card-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.post-card-title {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  color: var(--primary);
+}
+
+.post-card-meta {
+  font-size: 0.875rem;
+  color: var(--secondary);
+  margin-bottom: 10px;
+}
+
+.post-card-excerpt {
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+/* Footer Styles */
+footer.footer span a {
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+
+/* Increase Blog Width */
+/* .main {
+  max-width: calc(100% - 100px);
+  margin: auto;
+  width: 60%;
+} */
+
+/* Profile Subtitle Justification */
+.profile .profile_inner span {
+  text-align: justify;
+  text-align-last: center;
+  display: block;
+  /* width: 90%; */
+}
+
+/* Blog Post Title Styling */
+.post-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffffffdf;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}

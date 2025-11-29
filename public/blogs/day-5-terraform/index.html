@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Day 5 — Understanding Terraform Variables (Input, Output, Locals &amp; Precedence) | Rajesh Reddy Bejadi</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+    
+          
+        
+
+
+
+Today’s focus was on one of the most important concepts in Terraform: Variables.
+Variables help make Terraform configurations reusable, flexible, and clean — especially when working with AWS infrastructure.
+This blog covers why variables are needed, the different types, how to declare them, and how Terraform decides which value takes priority when multiple sources exist.">
+<meta name="author" content="Rajesh Reddy Bejadi">
+<link rel="canonical" href="http://localhost:1313/blogs/day-5-terraform/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.c37b5f76cc4a9826dc9706c9d255cfcf1f82686503572e30636031da3205ecda.css" integrity="sha256-w3tfdsxKmCbclwbJ0lXPzx&#43;CaGUDVy4wY2Ax2jIF7No=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/blogs/day-5-terraform/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/blogs/day-5-terraform/">
+  <meta property="og:site_name" content="Rajesh Reddy Bejadi">
+  <meta property="og:title" content="Day 5 — Understanding Terraform Variables (Input, Output, Locals & Precedence)">
+  <meta property="og:description" content="Today’s focus was on one of the most important concepts in Terraform: Variables.
+Variables help make Terraform configurations reusable, flexible, and clean — especially when working with AWS infrastructure.
+This blog covers why variables are needed, the different types, how to declare them, and how Terraform decides which value takes priority when multiple sources exist.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blogs">
+    <meta property="article:published_time" content="2025-11-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-11-28T00:00:00+00:00">
+    <meta property="og:image" content="https://assets.community.aws/a/2vweWfdIr9epnbH2khiZpMtofDZ/Capture-JPG.webp?imgSize=560x300">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://assets.community.aws/a/2vweWfdIr9epnbH2khiZpMtofDZ/Capture-JPG.webp?imgSize=560x300">
+<meta name="twitter:title" content="Day 5 — Understanding Terraform Variables (Input, Output, Locals &amp; Precedence)">
+<meta name="twitter:description" content="
+    
+          
+        
+
+
+
+Today’s focus was on one of the most important concepts in Terraform: Variables.
+Variables help make Terraform configurations reusable, flexible, and clean — especially when working with AWS infrastructure.
+This blog covers why variables are needed, the different types, how to declare them, and how Terraform decides which value takes priority when multiple sources exist.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "http://localhost:1313/blogs/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Day 5 — Understanding Terraform Variables (Input, Output, Locals \u0026 Precedence)",
+      "item": "http://localhost:1313/blogs/day-5-terraform/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Day 5 — Understanding Terraform Variables (Input, Output, Locals \u0026 Precedence)",
+  "name": "Day 5 — Understanding Terraform Variables (Input, Output, Locals \u0026 Precedence)",
+  "description": "\rToday’s focus was on one of the most important concepts in Terraform: Variables.\nVariables help make Terraform configurations reusable, flexible, and clean — especially when working with AWS infrastructure.\nThis blog covers why variables are needed, the different types, how to declare them, and how Terraform decides which value takes priority when multiple sources exist.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "\rToday’s focus was on one of the most important concepts in Terraform: Variables.\nVariables help make Terraform configurations reusable, flexible, and clean — especially when working with AWS infrastructure.\nThis blog covers why variables are needed, the different types, how to declare them, and how Terraform decides which value takes priority when multiple sources exist.\nWhy Do We Need Variables in Terraform? As your AWS infrastructure grows, hard-coding values becomes messy and repetitive.\nVariables help solve this by allowing you to:\nReuse configs across environments Change values without editing code Keep your Terraform files clean Avoid duplication Separate configuration from infrastructure logic Terraform supports three major kinds of variables:\nInput variables Output variables Local values (locals) Let’s explore each.\n3. Local Values (locals) Locals are internal variables — they don’t take input and aren’t printed as outputs.\nThey are just shortcuts to reduce repetition or combine values.\nExample: locals { environment = \"dev\" name = \"${local.environment}-app\" } Use it like:\ntags = { Name = local.name } Locals = cleaner code \u0026 less duplication.\nExample: Full Variable Workflow Files:\nvariables.tf\nvariable \"region\" { type = string default = \"us-east-1\" } terraform.tfvars\nregion = \"us-west-2\" CLI:\nterraform apply -var=\"region=ap-south-1\" Result:\nTerraform uses ap-south-1, because CLI \u003e tfvars \u003e default.\n",
+  "wordCount" : "208",
+  "inLanguage": "en",
+  "image":"https://assets.community.aws/a/2vweWfdIr9epnbH2khiZpMtofDZ/Capture-JPG.webp?imgSize=560x300","datePublished": "2025-11-28T00:00:00Z",
+  "dateModified": "2025-11-28T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Rajesh Reddy Bejadi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blogs/day-5-terraform/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Rajesh Reddy Bejadi",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Rajesh Reddy Bejadi (Alt + H)">Rajesh Reddy Bejadi</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/blogs" title="Blogs">
+                    <span>Blogs</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+    <header class="post-header">
+        
+        <h1 class="post-title entry-hint-parent">
+            Day 5 — Understanding Terraform Variables (Input, Output, Locals &amp; Precedence)
+        </h1>
+        <div class="post-meta"><span title='2025-11-28 00:00:00 +0000 UTC'>November 28, 2025</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>Rajesh Reddy Bejadi</span>
+
+</div>
+        <div class="post-content"><div style="width: 100%;">
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/QMsJholPkDY?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+
+</div>
+<br>
+<p>Today’s focus was on one of the most important concepts in Terraform: <strong>Variables</strong>.</p>
+<p>Variables help make Terraform configurations reusable, flexible, and clean — especially when working with AWS infrastructure.</p>
+<p>This blog covers why variables are needed, the different types, how to declare them, and how Terraform decides which value takes priority when multiple sources exist.</p>
+<hr>
+<h1 id="why-do-we-need-variables-in-terraform"><strong>Why Do We Need Variables in Terraform?</strong></h1>
+<p>As your AWS infrastructure grows, hard-coding values becomes messy and repetitive.</p>
+<p>Variables help solve this by allowing you to:</p>
+<ul>
+<li>Reuse configs across environments</li>
+<li>Change values without editing code</li>
+<li>Keep your Terraform files clean</li>
+<li>Avoid duplication</li>
+<li>Separate configuration from infrastructure logic</li>
+</ul>
+<p>Terraform supports three major kinds of variables:</p>
+<ol>
+<li><strong>Input variables</strong></li>
+<li><strong>Output variables</strong></li>
+<li><strong>Local values (locals)</strong></li>
+</ol>
+<p>Let’s explore each.</p>
+<hr>
+<hr>
+<h1 id="3-local-values-locals"><strong>3. Local Values (locals)</strong></h1>
+<p>Locals are internal variables — they don’t take input and aren’t printed as outputs.</p>
+<p>They are just shortcuts to reduce repetition or combine values.</p>
+<h3 id="example">Example:</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hcl" data-lang="hcl"><span class="line"><span class="cl"><span class="k">locals</span> {
+</span></span><span class="line"><span class="cl"><span class="n">  environment</span> <span class="o">=</span> <span class="s2">&#34;dev&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">  name</span>        <span class="o">=</span> <span class="s2">&#34;${local.environment}-app&#34;</span>
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>Use it like:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hcl" data-lang="hcl"><span class="line"><span class="cl"><span class="n">tags</span> <span class="o">=</span> {
+</span></span><span class="line"><span class="cl"><span class="n">  Name</span> <span class="o">=</span> <span class="k">local</span><span class="p">.</span><span class="k">name</span>
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>Locals = cleaner code &amp; less duplication.</p>
+<hr>
+<h1 id="example-full-variable-workflow"><strong>Example: Full Variable Workflow</strong></h1>
+<p>Files:</p>
+<p><code>variables.tf</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hcl" data-lang="hcl"><span class="line"><span class="cl"><span class="k">variable</span> <span class="s2">&#34;region&#34;</span> {
+</span></span><span class="line"><span class="cl"><span class="n">  type</span>    <span class="o">=</span> <span class="k">string</span>
+</span></span><span class="line"><span class="cl"><span class="n">  default</span> <span class="o">=</span> <span class="s2">&#34;us-east-1&#34;</span>
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p><code>terraform.tfvars</code></p>
+<pre tabindex="0"><code>region = &#34;us-west-2&#34;
+</code></pre><p>CLI:</p>
+<pre tabindex="0"><code>terraform apply -var=&#34;region=ap-south-1&#34;
+</code></pre><p>Result:</p>
+<p>Terraform uses <strong>ap-south-1</strong>, because CLI &gt; tfvars &gt; default.</p>
+
+        </div>
+
+        <footer class="post-footer">
+            <ul class="post-tags">
+            </ul>
+
+        </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>
+        Made by Rajesh Reddy Bejadi
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script></body>
+
+</html>

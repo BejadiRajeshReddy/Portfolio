@@ -1,0 +1,30 @@
+{{ define "main" }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+</header>
+
+<div class="post-card-grid">
+    {{ range .Pages }}
+    <article class="post-card">
+        <a class="post-card-link" href="{{ .Permalink }}">
+            {{- if .Params.cover.image }}
+            <div class="post-card-image">
+                <img loading="lazy" src="{{ .Params.cover.image | absURL }}"
+                    alt="{{ .Params.cover.alt | default .Title }}">
+            </div>
+            {{- end }}
+            <div class="post-card-content">
+                <header class="post-card-header">
+                    <h2 class="post-card-title">
+                        {{ .Title }}
+                    </h2>
+                </header>
+                <div class="post-card-meta">
+                    <span>{{ .Date.Format "January 2, 2006" }}</span> · <span>{{ .ReadingTime }} min read</span>
+                </div>
+            </div>
+        </a>
+    </article>
+    {{ end }}
+</div>
+{{ end }}
